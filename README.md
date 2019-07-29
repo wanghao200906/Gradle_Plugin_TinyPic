@@ -7,3 +7,9 @@
 ```
     implementation 'com.tinify:tinify:1.6.2'
 ```
+
+- 运行很简单
+```
+      ./gradlew tinyTask 
+
+```
