@@ -1,0 +1,48 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+//指定资源路径，可以把相同包路径的类打到一块
+sourceSets {
+    main {
+        groovy {
+            srcDir '../tinypicplugin/src/main/groovy'
+        }
+
+        java {
+            srcDir "../tinypicplugin/src/main/java"
+        }
+
+        resources {
+            srcDir '../tinypicplugin/src/main/resources'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Gradle Plugin 依赖
+    implementation gradleApi()
+    //本地发布 Plugin
+    implementation localGroovy()
+
+    //TinyPng
+    implementation 'com.tinify:tinify:1.6.2'
+}
+
+//Plugin 标示信息
+group 'com.example.tinypicplugin'
+version '1.0'
+
+//本地发布，发布到根目录的 /repo 文件夹下
+uploadArchives{
+    repositories {
+        mavenDeployer{
+            repository(url :uri('../repo'))
+        }
+    }
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
